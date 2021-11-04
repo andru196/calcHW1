@@ -1,9 +1,10 @@
-package com.example.calchw1
+package com.example.calchw1.common
 
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
+import com.example.calchw1.presentation.SettingsActivity
 
 class Result : ActivityResultContract<Int, String?>() {
 

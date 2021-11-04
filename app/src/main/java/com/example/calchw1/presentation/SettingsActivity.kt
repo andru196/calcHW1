@@ -1,9 +1,11 @@
-package com.example.calchw1
+package com.example.calchw1.presentation
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.calchw1.common.BaseActivity
+import com.example.calchw1.R
 
 class SettingsActivity: BaseActivity() {
     companion object {

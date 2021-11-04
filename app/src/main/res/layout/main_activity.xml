@@ -16,6 +16,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
+        android:id="@+id/button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -34,20 +35,31 @@
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_clear"
                     android:layout_weight="1"
                     android:text="C" />
 
                 <ImageView
                     android:padding="20dp"
-                    android:id="@+id/imageView"
+                    android:id="@+id/main_backspace"
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_baseline_backspace_24" />
+                    app:srcCompat="@drawable/ic_baseline_backspace_24"
+                    android:background="@drawable/shape_main_button"
+                    />
                 <TextView
                     style="@style/MainButton"
                     android:layout_weight="1"
-                    android:text="M" />
+                    android:text="M"
+                    />
+
+                <TextView
+                    style="@style/MainButton"
+                    android:id="@+id/main_multy"
+                    android:layout_weight="1"
+                    android:text="*"
+                    />
 
             </LinearLayout>
 
@@ -58,18 +70,28 @@
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_one"
                     android:layout_weight="1"
                     android:text="1" />
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_two"
                     android:layout_weight="1"
                     android:text="2" />
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_three"
                     android:layout_weight="1"
                     android:text="3" />
+
+                <TextView
+                    style="@style/MainButton"
+                    android:id="@+id/main_dev"
+                    android:layout_weight="1"
+                    android:text="/"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -79,18 +101,28 @@
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_four"
                     android:layout_weight="1"
                     android:text="4" />
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_five"
                     android:layout_weight="1"
                     android:text="5" />
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_six"
                     android:layout_weight="1"
                     android:text="6" />
+
+                <TextView
+                    style="@style/MainButton"
+                    android:id="@+id/main_minus"
+                    android:layout_weight="1"
+                    android:text="-"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -100,18 +132,27 @@
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_seven"
                     android:layout_weight="1"
                     android:text="7" />
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_eight"
                     android:layout_weight="1"
                     android:text="8" />
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_nine"
                     android:layout_weight="1"
                     android:text="9" />
+                <TextView
+                    style="@style/MainButton"
+                    android:id="@+id/main_plus"
+                    android:layout_weight="1"
+                    android:text="+"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -121,53 +162,42 @@
 
                 <TextView
                     style="@style/MainButton"
+                    android:id="@+id/main_point"
                     android:layout_weight="1"
                     android:text="." />
 
                 <TextView
                     style="@style/MainButton"
                     android:layout_weight="1"
+                    android:id="@+id/main_zero"
                     android:text="0" />
 
                 <TextView
                     style="@style/MainButton"
-                    android:layout_weight="1"
+                    android:id="@+id/main_equal"
+                    android:layout_weight="2"
+
                     android:text="=" />
+
+
             </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/ActionButton"
-                android:text="C" />
-
-            <TextView
-                style="@style/ActionButton"
-                android:text="M" />
-
-            <TextView
-                style="@style/ActionButton"
-                android:text="+" />
-
-            <TextView
-                style="@style/ActionButton"
-
-                android:text="-" />
-
-            <TextView
-                style="@style/ActionButton"
-
-                android:text="*" />
-
-            <TextView
-                style="@style/ActionButton"
-                android:text="/" />
-        </LinearLayout>
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/input_et"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/result_tv"
+        tools:text="123"
+        android:inputType="number"
+        />
+    <TextView
+        android:id="@+id/result_tv"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toTopOf="@id/button_container"
+        android:text="0"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

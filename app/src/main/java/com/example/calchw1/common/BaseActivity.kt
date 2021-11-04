@@ -1,4 +1,4 @@
-package com.example.calchw1
+package com.example.calchw1.common
 
 import android.os.Bundle
 import android.util.Log
