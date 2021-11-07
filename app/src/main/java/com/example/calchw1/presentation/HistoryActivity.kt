@@ -32,6 +32,11 @@ class HistoryActivity : BaseActivity() {
         val historyAdapter = HistoryAdapter{
             viewModel.onItemClicked(it)
         }
+
+        viewBinding.back.setOnClickListener{
+            finish()
+        }
+
         with(viewBinding.list) {
             layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)
             adapter = historyAdapter

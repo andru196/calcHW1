@@ -9,6 +9,7 @@ import com.example.calchw1.domain.CalculationExecutor
 import com.example.calchw1.domain.HistoryRepository
 import com.example.calchw1.domain.SettingsDao
 import com.example.calchw1.domain.entity.HistoryItem
+import com.example.calchw1.domain.entity.ResultPanelType
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -30,10 +31,14 @@ class MainViewModel(
     private val _resultPanelState = MutableLiveData<ResultPanelType>(ResultPanelType.LEFT)
     val resultPanelState: LiveData<ResultPanelType> = _resultPanelState
 
+    private val _precisionResult = MutableLiveData<Int>()
+    val precisionResult = _precisionResult
+
+    private val _vibrationIntesiv = MutableLiveData<Int>()
+    val vibrationIntesiv = _vibrationIntesiv
+
     init {
-        viewModelScope.launch {
-            _resultPanelState.value = settingsDao.getResultPanelType()
-        }
+        onStart()
     }
 
     fun onNumberClick(num:Int) {
@@ -45,8 +50,16 @@ class MainViewModel(
         if (chr != '.') {
             if (sightsStack.isNotEmpty())
                 getResult()
-            if (sightsStack.firstOrNull() != _expession.length)
+            if (sightsStack.firstOrNull() != _expession.length) {
                 sightsStack.push(_expession.length)
+                if (chr == 's')
+                {
+                    _expession += "^0.5"
+                    _expressionState.value = _expession
+                    getResult()
+                    return
+                }
+            }
             else
                 _expession = _expession.dropLast(1)
         } else if (_expession.lastOrNull() == '.')
@@ -94,7 +107,12 @@ class MainViewModel(
 
     fun onStart() {
         viewModelScope.launch {
-            _resultPanelState.value = settingsDao.getResultPanelType()
+            with (settingsDao.getSettings())
+            {
+                _resultPanelState.value = resultPanelType
+                _precisionResult.value = precision
+                _vibrationIntesiv.value = vibrationIntesivity
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.calchw1.domain.SettingsDao
+import com.example.calchw1.domain.entity.ResultPanelType
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
@@ -18,9 +19,19 @@ class SettingsViewModel(
     private val _openResultPanelAction = MutableLiveData<ResultPanelType>()
     val openResultPanelAction = _openResultPanelAction
 
+    private val _precisionResult = MutableLiveData<Int>()
+    val precisionResult = _precisionResult
+
+    private val _vibrationIntesiv = MutableLiveData<Int>()
+    val vibrationIntesiv = _vibrationIntesiv
+
     init {
         viewModelScope.launch {
-            _resultPanelState.value = settingsDao.getResultPanelType()
+            with (settingsDao.getSettings()){
+                _resultPanelState.value = resultPanelType
+                _precisionResult.value = precision
+                _vibrationIntesiv.value = vibrationIntesivity
+            }
         }
     }
 
@@ -31,11 +42,22 @@ class SettingsViewModel(
         }
     }
 
+    fun onPrecisionChanged(precision: Int) {
+        _precisionResult.value = precision
+        viewModelScope.launch {
+            settingsDao.setPrecision(precision)
+        }
+    }
+
+    fun onVibrationChanged(vibration: Int) {
+        _vibrationIntesiv.value = vibration
+        viewModelScope.launch {
+            settingsDao.setVibration(vibration)
+        }
+    }
+
     fun onResultPanelTypeClicked() {
         _openResultPanelAction.value = _resultPanelState.value
     }
 }
 
-enum class ResultPanelType {
-    LEFT, RIGHT, HIDE
-}

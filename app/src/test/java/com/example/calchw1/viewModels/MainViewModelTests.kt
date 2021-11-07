@@ -50,7 +50,25 @@ class MainViewModelTests {
         calculationTest("2+2", "4")
     }
 
+    @Test
+    fun precisionTest() {
+        CalculationExecutor.precition = 0
+        myCalculationTest("10/3", "3")
+        CalculationExecutor.precition = 1
+        myCalculationTest("10/3", "3,3")
+        CalculationExecutor.precition = 4
+        myCalculationTest("10/3", "3,3333")
+        CalculationExecutor.precition = 8
+        myCalculationTest("10/3", "3,33333333")
+    }
+
+
     private fun calculationTest (expression: String, result: String) {
         Assert.assertEquals(result, CalculationExecutor.computateWithEvaluator(expression))
+    }
+
+    private fun myCalculationTest (expression: String, result: String) {
+        Assert.assertEquals(result, CalculationExecutor.computate(expression,
+            CalculationExecutor.getSightsStack(expression)))
     }
 }

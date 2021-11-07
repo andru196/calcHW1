@@ -20,9 +20,10 @@ import com.example.calchw1.common.BaseActivity
 import com.example.calchw1.databinding.MainActivityBinding
 import com.example.calchw1.di.HistoryRepositoryProvider
 import com.example.calchw1.di.SettingsDaoProvider
+import com.example.calchw1.domain.CalculationExecutor
 import com.example.calchw1.domain.entity.HistoryResult
+import com.example.calchw1.domain.entity.ResultPanelType
 import com.example.calchw1.viewModels.MainViewModel
-import com.example.calchw1.viewModels.ResultPanelType
 
 class MainActivity : BaseActivity() {
 
@@ -64,8 +65,12 @@ class MainActivity : BaseActivity() {
                     ResultPanelType.HIDE -> {gravity}
                 }
                 isVisible = it != ResultPanelType.HIDE
-
             }
+        }
+
+        viewModel.precisionResult.observe(this) {
+            CalculationExecutor.precition = it
+            viewModel.getResult()
         }
 
         val numsButtons = listOf(viewBinding.mainZero,
@@ -87,7 +92,9 @@ class MainActivity : BaseActivity() {
             viewBinding.mainMulty,
             viewBinding.mainPoint,
             viewBinding.mainPlus,
-            viewBinding.mainDev)
+            viewBinding.mainDev,
+            viewBinding.mainSqrt,
+            viewBinding.mainPow,)
         actionButtons.forEach { textView ->
                 textView.setOnClickListener { viewModel.onSightClick(textView.text[0]) }
             }
@@ -128,10 +135,10 @@ class MainActivity : BaseActivity() {
         viewModel.onStart()
     }
 
-    fun vibratePhone() {
+    private fun vibratePhone() {
         val vibrator = this?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationIntesiv.value ?: 1))
         } else {
             vibrator.vibrate(200)
         }

@@ -69,6 +69,12 @@
                     android:layout_weight="1"
                     android:text="*"
                     />
+                <TextView
+                    style="@style/MainButton"
+                    android:id="@+id/main_pow"
+                    android:layout_weight="1"
+                    android:text="^"
+                    />
 
             </LinearLayout>
 
@@ -180,11 +186,16 @@
                     android:layout_weight="1"
                     android:id="@+id/main_zero"
                     android:text="0" />
-
+                <TextView
+                    style="@style/MainButton"
+                    android:id="@+id/main_sqrt"
+                    android:layout_weight="1"
+                    android:text="sqrt"
+                    />
                 <TextView
                     style="@style/MainButton"
                     android:id="@+id/main_equal"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
 
                     android:text="=" />
 
