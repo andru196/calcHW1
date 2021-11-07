@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.SettingsActivity"/>
+        <activity android:name=".presentation.HistoryActivity" />
     </application>
-
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>
