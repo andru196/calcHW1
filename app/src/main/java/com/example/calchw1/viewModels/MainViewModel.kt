@@ -50,7 +50,7 @@ class MainViewModel(
         if (chr != '.') {
             if (sightsStack.isNotEmpty())
                 getResult()
-            if (sightsStack.firstOrNull() != _expession.length) {
+            if (sightsStack.lastOrNull() != _expession.length - 1) {
                 sightsStack.push(_expession.length)
                 if (chr == 's')
                 {
@@ -89,12 +89,17 @@ class MainViewModel(
             _expession = ""
             _expressionState.value = _expession
             sightsStack.clear()
+            getResult()
         }
     }
 
     fun getResult() : String {
         val res = CalculationExecutor.computate(_expession, sightsStack)
         _stateResult.value = res
+        if (_resultPanelState.value == ResultPanelType.HIDE)
+        {
+            _expressionState.value = res
+        }
         return res
     }
 

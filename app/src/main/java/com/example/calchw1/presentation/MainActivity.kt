@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import android.view.Gravity
 import androidx.activity.result.launch
 import androidx.activity.viewModels
@@ -84,7 +85,10 @@ class MainActivity : BaseActivity() {
             viewBinding.mainEight,
             viewBinding.mainNine)
         numsButtons.forEachIndexed { index, textView ->
-                textView.setOnClickListener { viewModel.onNumberClick(index) }
+                textView.setOnClickListener {
+                    viewModel.onNumberClick(index)
+                    vibratePhone()
+                }
             }
 
         val actionButtons = listOf(
@@ -96,12 +100,12 @@ class MainActivity : BaseActivity() {
             viewBinding.mainSqrt,
             viewBinding.mainPow,)
         actionButtons.forEach { textView ->
-                textView.setOnClickListener { viewModel.onSightClick(textView.text[0]) }
-            }
-
-        (numsButtons + actionButtons).forEach {
-            vibratePhone()
+                textView.setOnClickListener {
+                    viewModel.onSightClick(textView.text[0])
+                    vibratePhone()
+                }
         }
+
         viewBinding.mainClear.setOnClickListener{
             viewModel.onClearButton()
         }
@@ -136,12 +140,22 @@ class MainActivity : BaseActivity() {
     }
 
     private fun vibratePhone() {
-        val vibrator = this?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationIntesiv.value ?: 1))
-        } else {
-            vibrator.vibrate(200)
+        if (viewModel.vibrationIntesiv.value ?: 0 > 0) {
+            Log.d("MainActivity", "I'm vibrate... so strong: ${viewModel.vibrationIntesiv.value}, baby")
+            val vibrator = this?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if (Build.VERSION.SDK_INT >= 26) {
+                vibrator.vibrate(
+                    VibrationEffect.createOneShot(
+                        200,
+                        viewModel.vibrationIntesiv.value ?: 1
+                    )
+                )
+            } else {
+                vibrator.vibrate(200)
+            }
         }
+        else
+            Log.d("MainActivity", "Not vibrate")
     }
 
 

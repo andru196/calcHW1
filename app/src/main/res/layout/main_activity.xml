@@ -59,12 +59,6 @@
                     />
                 <TextView
                     style="@style/MainButton"
-                    android:layout_weight="1"
-                    android:text="M"
-                    />
-
-                <TextView
-                    style="@style/MainButton"
                     android:id="@+id/main_multy"
                     android:layout_weight="1"
                     android:text="*"
@@ -216,7 +210,7 @@
     <TextView
         android:id="@+id/result_tv"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:text="0"
         android:textAlignment="textEnd"
         android:textSize="20sp"
